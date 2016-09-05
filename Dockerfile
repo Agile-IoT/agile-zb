@@ -30,6 +30,4 @@ RUN python3 -m pip install -r requirements.txt
 
 COPY dbus_server dbus_server
 COPY ge_link_bulb ge_link_bulb
-COPY start.sh start.sh
 
-CMD [ "bash", "/usr/src/app/start.sh" ]
