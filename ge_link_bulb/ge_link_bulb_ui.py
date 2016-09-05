@@ -25,6 +25,7 @@ import dbus
 # --- Variables ---------
 # DBus
 BUS_NAME = "iot.agile.Device.ZB"
+IFACE_NAME = "iot.agile.Device"
 OBJ_PATH_BASE = "/iot/agile/Device/ZB/"
 DEVICE_ID = "000000000000FFFF"
 bulb = None
@@ -90,7 +91,7 @@ def setup():
    # DBus
    session_bus = dbus.SessionBus()
    objlamp = session_bus.get_object(BUS_NAME, OBJ_PATH_BASE + DEVICE_ID)
-   bulb = dbus.Interface(objlamp, dbus_interface="iot.agile.Device.ZB")
+   bulb = dbus.Interface(objlamp, dbus_interface=IFACE_NAME)
    
 def signal_handler(signal, frame):
    """
