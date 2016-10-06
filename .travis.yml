@@ -6,7 +6,7 @@ services:
   - docker
 
 env:
-  - IMAGE=agileiot/agile-nodered-armv7l
+  - IMAGE=agileiot/agile-zb-armv7l
 
 script:
   - docker run --rm --privileged multiarch/qemu-user-static:register
