@@ -39,15 +39,6 @@ SOCKET0 = "socket0"
 SOCKET1 = "socket1"
 XBEE_ZB = "XBee_ZigBee"
 zb = None
-# ZigBee
-setup_params = {
-   "baudrate": 38400,
-   "apiMode2": False,
-   "NJ": "FF",
-   "ZS": "00",
-   "EE": "01",
-   "SC": "0020"  # set bit 5 only, which means only the 5th channel, starting from 11, i.e. channel 16 (shown as ATCH=0x10)
-}
 zb_explicit_command = {
    "api_command": "tx_explicit",
    "frame_id": [0x04],
@@ -177,9 +168,6 @@ def setup():
    session_bus = dbus.SessionBus()
    objXBZB = session_bus.get_object(PROTOCOL_BUS_NAME, PROTOCOL_OBJ_PATH + "/" + XBEE_ZB + "/" + SOCKET0)
    zb = dbus.Interface(objXBZB, dbus_interface=PROTOCOL_BUS_NAME)
-   # ZigBee
-   zb.Setup(dbus.Dictionary(setup_params, signature="sv"))
-   zb.Connect()
    
 def signal_handler(signal, frame):
    """

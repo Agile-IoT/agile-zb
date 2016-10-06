@@ -25,6 +25,16 @@ from dbus_protocols import dbus_xbee_zigbee as xb_zb
 
 # --- Variables ---------
 mainloop = GLib.MainLoop()
+
+# ZigBee
+setup_params = {
+   "baudrate": 38400,
+   "apiMode2": False,
+   "NJ": "FF",
+   "ZS": "00",
+   "EE": "01",
+   "SC": "0020"  # set bit 5 only, which means only the 5th channel, starting from 11, i.e. channel 16 (shown as ATCH=0x10)
+}
 # -----------------------
 
 
@@ -46,6 +56,11 @@ def dbusService():
    dbe = DBusExit()
    xb1 = xb_802.XBee_802_15_4()
    xb2 = xb_zb.XBee_ZigBee()
+
+   # Setup ZB
+   xb2._objS0.Setup(dbus.Dictionary(setup_params, signature="sv"))
+   xb2._objS0.Connect()
+
    print("Running DBus service.")
    try:
       mainloop.run()
