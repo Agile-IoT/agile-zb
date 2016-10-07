@@ -10,9 +10,8 @@ cache:
     - $HOME/docker-cache/
 
 env:
-  global:
-    - IMAGE=agileiot/agile-zb-armv7l
-    - DOCKER_CACHE_FILE=$HOME/docker-cache/cache.tar.gz
+  - IMAGE=agileiot/agile-zb-armv7l
+    DOCKER_CACHE_FILE=$HOME/docker-cache/cache.tar.gz
 
 before_install:
   - if [ -f ${DOCKER_CACHE_FILE} ]; then
