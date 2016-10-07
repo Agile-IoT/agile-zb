@@ -5,12 +5,27 @@ sudo: required
 services:
   - docker
 
+cache:
+  directories:
+    - $HOME/docker-cache/
+
 env:
   - IMAGE=agileiot/agile-zb-armv7l
+  - DOCKER_CACHE_FILE=&HOME/docker-cache/cache.tar.gz
+
+before_install:
+  - if [ -f ${DOCKER_CACHE_FILE} ]; then
+      gunzip -c ${DOCKER_CACHE_FILE} | docker load;
+    fi
 
 script:
   - docker run --rm --privileged multiarch/qemu-user-static:register
   - docker build -t $IMAGE:$TRAVIS_BRANCH .
+  - if [[ ${TRAVIS_BRANCH} == "master" ]] && [[ ${TRAVIS_PULL_REQUEST} == "false" ]]; then
+      mkdir -p $(dirname ${DOCKER_CACHE_FILE});
+      docker save $(docker history -q ${DOCKER_REPOSITORY}:${TRAVIS_COMMIT} | grep -v '<missing>') | gzip > ${DOCKER_CACHE_FILE};
+    fi
+
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
   - docker push $IMAGE:$TRAVIS_BRANCH;
