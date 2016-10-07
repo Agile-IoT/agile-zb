@@ -58,6 +58,14 @@ class DeviceObj(dbus.service.Object):
    def Connected(self):
       return _getConnected()
 
+   @dbus.service.method(IFACE_NAME, in_signature="", out_signature="")
+   def Connect(self):
+      _setConnected(True)
+
+   @dbus.service.method(IFACE_NAME, in_signature="", out_signature="")
+   def Disconnect(self):
+      _setConnected(False)
+
    @dbus.service.method(IFACE_NAME, in_signature="", out_signature="s")
    def Name(self):
       return self._device_name
