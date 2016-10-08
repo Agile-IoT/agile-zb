@@ -14,16 +14,16 @@ env:
     DOCKER_CACHE_FILE=/home/travis/docker-cache/cache.tar.gz
 
 before_install:
-  - for f in /home/travis/docker-cache/cache*.tar.gz; do
-      gunzip -c $f | docker load || true;
-    done
+  - if [ -f /home/travis/docker-cache/cache.tar.gz ]; then
+      gunzip -c /home/travis/docker-cache/cache.tar.gz | docker load || true;
+    fi
 
 script:
   - docker run --rm --privileged multiarch/qemu-user-static:register
   - docker build -t $IMAGE:$TRAVIS_BRANCH .
   - if [[ ${TRAVIS_PULL_REQUEST} == "false" ]]; then
       mkdir -p $(dirname ${DOCKER_CACHE_FILE});
-      docker save $(docker history -q $IMAGE:$TRAVIS_BRANCH | grep -v '<missing>') | gzip > /home/travis/docker-cache/cache-$TRAVIS_BRANCH.tar.gz;
+      docker save $(docker history -q $IMAGE:$TRAVIS_BRANCH | grep -v '<missing>') | gzip > ${DOCKER_CACHE_FILE};
     fi
 
 after_success:
