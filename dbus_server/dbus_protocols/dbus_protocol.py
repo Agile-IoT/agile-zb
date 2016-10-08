@@ -14,6 +14,7 @@
 # --- Imports -----------
 import dbus
 import dbus.service
+import os.path
 # -----------------------
 
 
@@ -23,17 +24,27 @@ OBJ_PATH = "/iot/agile/Protocol/ZB"
 SOCKET0 = "socket0"
 SOCKET1 = "socket1"
 
-try:
-  import RPi.GPIO as GPIO
-  if GPIO.RPI_INFO["TYPE"] == "Pi 3 Model B":
-     SOCKET0DEV = "/dev/ttyS0"
-     SOCKET1DEV = "/dev/ttyS0"
-  else:
-     SOCKET0DEV = "/dev/ttyAMA0"
-     SOCKET1DEV = "/dev/ttyAMA0"
-except (ImportError, RuntimeError):
+#try:
+#  import RPi.GPIO as GPIO
+#  if GPIO.RPI_INFO["TYPE"] == "Pi 3 Model B":
+#     SOCKET0DEV = "/dev/ttyS0"
+#     SOCKET1DEV = "/dev/ttyS0"
+#  else:
+#     SOCKET0DEV = "/dev/ttyAMA0"
+#     SOCKET1DEV = "/dev/ttyAMA0"
+#except (ImportError, RuntimeError):
+#  SOCKET0DEV = "/dev/ttyUSB0"
+#  SOCKET1DEV = "/dev/ttyUSB0"
+if os.path.exists("/dev/ttyUSB0"):
   SOCKET0DEV = "/dev/ttyUSB0"
-  SOCKET1DEV = "/dev/ttyUSB0"
+elif os.path.exists("/dev/ttyS0"):
+  SOCKET0DEV = "/dev/ttyS0"
+elif os.path.exists("/dev/ttyAMA0"):
+  SOCKET0DEV = "/dev/ttyAMA0"
+else:
+  SOCKET0DEV = "/dev/ttyUSB1"
+
+SOCKET1DEV = SOCKET0DEV
 SOCKETDEV = {SOCKET0: SOCKET0DEV, SOCKET1: SOCKET1DEV} 
 # -----------------------
 
