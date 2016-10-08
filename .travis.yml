@@ -15,7 +15,7 @@ env:
 
 before_install:
   - if [ -f /home/travis/docker-cache/cache.tar.gz ]; then
-      gunzip -c /home/travis/docker-cache/cache.tar.gz | docker load;
+      gunzip -c /home/travis/docker-cache/cache.tar.gz | docker load || true;
     fi
 
 script:
