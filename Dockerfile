@@ -1,7 +1,7 @@
 FROM resin/raspberrypi2-debian:jessie
 
 # Install dependencies
-RUN apt-get clean && apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install --no-install-recommends -y \
   python3-dbus \
   libdbus-1-dev \
   libdbus-glib-1-dev \
@@ -10,6 +10,7 @@ RUN apt-get clean && apt-get update && apt-get install -y \
   build-essential \
   python3-dev \
   python3-tk \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # resin-sync will always sync to /usr/src/app, so code needs to be here.
 WORKDIR /usr/src/app
