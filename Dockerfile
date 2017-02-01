@@ -2,24 +2,14 @@ FROM resin/raspberrypi2-debian:jessie
 
 # Install dependencies
 RUN apt-get clean && apt-get update && apt-get install -y \
-  python3-dbus
-
-RUN apt-get clean && apt-get update && apt-get install -y \
+  python3-dbus \
   libdbus-1-dev \
   libdbus-glib-1-dev \
-  python3-gi
-
-RUN apt-get clean && apt-get update && apt-get install -y \
-  python3-pip
-
-RUN apt-get clean && apt-get update && apt-get install -y \
-  build-essential
-
-RUN apt-get clean && apt-get update && apt-get install -y \
-  python3-dev
-
-RUN apt-get clean && apt-get update && apt-get install -y \
-  python3-tk
+  python3-gi \
+  python3-pip \
+  build-essential \
+  python3-dev \
+  python3-tk \
 
 # resin-sync will always sync to /usr/src/app, so code needs to be here.
 WORKDIR /usr/src/app
