@@ -78,8 +78,8 @@ class DeviceObj(dbus.service.Object):
    def Disconnect(self):
       raise Device_Exception(self._device_name, "Function not supported.")
 
-   @dbus.service.method(IFACE_NAME, in_signature="sa{sv}", out_signature="")
-   def Execute(self, op, args):
+   @dbus.service.method(IFACE_NAME, in_signature="s", out_signature="")
+   def Execute(self, op):
       raise Device_Exception(self._device_name, "Function not supported.")
 
 class Device():

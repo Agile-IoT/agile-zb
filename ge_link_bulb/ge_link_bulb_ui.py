@@ -35,34 +35,34 @@ def bulb_on():
    """
    Turns the GE Link Bulb On.
    """
-   bulb.Execute("on",dbus.Dictionary(signature="sv"))
+   bulb.Execute("on")
 
 def bulb_off():
    """
    Turns the GE Link Bulb On.
    """
-   bulb.Execute("off",dbus.Dictionary(signature="sv"))
+   bulb.Execute("off")
 
    
 def bulb_toggle():
    """
    Toggles the GE Link Bulb.
    """
-   bulb.Execute("toggle",dbus.Dictionary(signature="sv"))
+   bulb.Execute("toggle")
 
    
-def bulb_dim(bright, steps=30, speed=1):
-   """
-   Sets the bright of the GE Link Bulb between 100% (0xFF) and 0% (0x00).
-   """
-   bulb.Execute("dim",dbus.Dictionary({"brightness": bright},signature="sv"))
+#def bulb_dim(bright, steps=30, speed=1):
+#   """
+#   Sets the bright of the GE Link Bulb between 100% (0xFF) and 0% (0x00).
+#   """
+#   bulb.Execute("dim",dbus.Dictionary({"brightness": bright},signature="sv"))
    
-def bulb_dim_call():
-   """
-   Calls to bulb_dim with the bright set in the slider.
-   """
-   bright = int((dimSlider.get() * 0xFF) / 100)
-   bulb_dim(bright)
+#def bulb_dim_call():
+#   """
+#   Calls to bulb_dim with the bright set in the slider.
+#   """
+#   bright = int((dimSlider.get() * 0xFF) / 100)
+#   bulb_dim(bright)
    
 def bulb_blink(times=5, speed=0.25):
    """
